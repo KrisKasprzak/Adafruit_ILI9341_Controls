@@ -18,7 +18,8 @@ This library will let programmers add slider-type controls to their projects. Th
 
 The objects are smart and automatically filter out press outside the controls range. So you will not need to test a press in order to make a call to each control. There is a changed() method that can be called to test if a slider is pressed but I recommend only using this in cases where a sliders result is passed to a long function call or slider handle color needs to be change for high values.
 
-While this library was created for the ILI9341_t3 and intended for Teensy-based MCU's, the library may be adaptable to other display drivers. Note the driver must use the Adafruit_GFX libraries. To allow other display drivers, modify the lines in the .h and .cpp files to allow a different driver to be passed in. For example change call such as SliderH(ILI9341_t3 *disp,... to SliderH(Adafruit_RA8875 *disp,...
+The library may be adaptable to other display drivers. Note the driver must use the Adafruit_GFX libraries. To allow other display drivers, modify the lines in the .h and .cpp files to allow a different driver to be passed in. For example change call such as SliderH(ILI9341_t3 *disp,... to SliderH(Adafruit_RA8875 *disp,...
+Font handling may require changes as well. setFont with the GFX library requires fonts to be passed by ref.
 <br>
 <br>
 
