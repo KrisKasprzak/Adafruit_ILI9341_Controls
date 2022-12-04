@@ -22,5 +22,16 @@ The library may be adaptable to other display drivers. Note the driver must use 
 Font handling may require changes as well. setFont with the GFX library requires fonts to be passed by ref.
 <br>
 <br>
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/BarChartH.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/BarChartV.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/CGraph.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Dial.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Equalizer.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/ColorPicker.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/RingSliders.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Button.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Checkbox.jpg)
+![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/OptionButton.jpg)
+
 
 
