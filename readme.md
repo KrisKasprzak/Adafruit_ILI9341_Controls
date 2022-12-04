@@ -1,3 +1,5 @@
+<b><h2><center>Graphical Controls Library for Adafruit_ILI9341 Displays</h1></b>
+  <br>
 <b><h2><center>Slider Controls for Touchscreen Displays</center></h1></b>
 
 This library will let programmers add control from graphs to slider-type controls to their projects. This library is intended to be used with Adafruit_ILI9341 libraries and TFT LCD's that support touch. Typical applications are volume controls, brightness controls, and on/off like buttons. Multiple controls can be added allow the UI creation of a graphic equalizer. Users can control location, length of scale, colors, display of tick marks, and scale snapping. Users specify the length of slider and both low and high limits, and the slider control draws a drag handle and upon drag returns the scaled value that will lay between the limits. Scale can be floats to bytes. 
