@@ -28,7 +28,6 @@ Font handling may require changes as well. setFont with the GFX library requires
 ![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Dial.jpg)
 ![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Equalizer.jpg)
 ![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/ColorPicker.jpg)
-![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/RingSliders.jpg)
 ![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Button.jpg)
 ![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/Checkbox.jpg)
 ![header image](https://raw.github.com/KrisKasprzak/Adafruit_ILI9341_controls/master/OptionButton.jpg)
