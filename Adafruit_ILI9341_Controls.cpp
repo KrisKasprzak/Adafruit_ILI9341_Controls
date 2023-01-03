@@ -28,6 +28,7 @@
 	4.0		11/2020			kasprzak			fixed bugs added Button, Checkbox, OptionButton classes
 	5.0		11/2020			kasprzak			modified sliders, option and check to return true/false if pressed, and actual value stored in value property
 	5.1		11/2020			kasprzak			added automatic "blank out" old handle support insided draw() method in sliderH and SliderV (really needed when a slide is redrawn based on input other than a finger slide (encoder)
+	5.2		1/2023			kasprzak			added icons for buttons, better text centering
 */
 
 
@@ -248,15 +249,14 @@ void CGraph::drawGraph() {
 	 d->setTextColor(tc, bc);
 
 	// draw title
+	d->setFont(&tf);		
+	d->getTextBounds("A", x, y, &tx, &ty, &tw, &th);
 	if (st){
-		
+
 		if (tl == LOCATION_TOP){
-			d->setFont(&af);		
-			d->getTextBounds(dl[0], x, y, &tx, &ty, &tw, &th);
 			d->setCursor(gx, gy - gh - th-20);
 		}
 		else {
-			d->setFont(&tf);
 			d->setCursor(gx, gy - gh -10);
 		}
 				
@@ -266,11 +266,12 @@ void CGraph::drawGraph() {
 
 	// draw grid lines
 	// first blank out xscale for redrawing
-	d->fillRect(gx-10, gy+2, gw+20,25, bc);
-	d->setFont(&af);
-	d->fillRect(gx, gy - gh-4, gw, gh+8, bc);
+	d->fillRect(gx-10, gy+2, gw+25,th+2, bc); 
+	//d->fillRect(gx, gy - gh-4, gw, gh+8, bc); 
 	d->fillRect(gx, gy - gh, gw, gh, pc);
 
+	d->setFont(&af);	
+	d->getTextBounds("A", x, y, &tx, &ty, &tw, &th);
 	// draw vertical lines
 	for (j = 0; j <= xDiv; j++) {
 		if(j > 0){
@@ -287,16 +288,18 @@ void CGraph::drawGraph() {
 		}
 
 		if (sxs){
+			// draw x labels
 			dtostrf((XLow+(XInc*j)) * XTextScale, 0, XDec,text);
 
+
 			if ((XScaleOffset == 0) && (YScaleOffset == 0)){	
-				d->getTextBounds(text, x, y, &tx, &ty, &tw, &th);
-				d->setCursor(gx + (j * xlen) - (tw/2), gy + 10 + (th)/2);
+		
+				d->setCursor(gx + (j * xlen) - (tw/2), gy+th+5);
 			}
 			else {
 				d->setCursor(gx + (j * xlen) + XScaleOffset, gy + YScaleOffset);
 			}
-			
+			StartPointY = d->getCursorY();
 			d->print(text);
 			
 		}
@@ -323,6 +326,7 @@ void CGraph::drawGraph() {
 			dtostrf(YLow+(YInc*i), 0, YDec,text);
 					
 			if ((XScaleOffset == 0) && (YScaleOffset == 0)){
+				d->setFont(&af);
 				d->getTextBounds(text, x, y, &tx, &ty, &tw, &th);
 				d->setCursor(gx-tw-10,  gy - (ylen * i) + (th)/2);				
 			}
@@ -350,33 +354,33 @@ void CGraph::drawGraph() {
 	d->drawFastVLine(gx-1, gy - gh, gh+1, ac);
 	d->drawFastVLine(gx-2, gy - gh, gh+1, ac);
 	
-	// draw legend
+	// draw axis labels
 	if (sal){
 		// draw y label
 		oOrientation = d->getRotation();
 		d->setTextColor(tc, bc);
 		d->setRotation(oOrientation - 1);
-		d->setCursor(d->width()-gy,gx-44);	
+		d->setCursor(d->width()-gy,gx-(2*th));	
 		d->print(yatitle);
 		d->setRotation(oOrientation);
 		//Serial.println(yatitle);
 
     	// draw x label
 		d->setTextColor(tc, bc);
-		d->getTextBounds(xatitle, x, y, &tx, &ty, &tw, &th);
-		d->setCursor(gx,gy+ th+5);	
-		if (sxs){
-			d->setCursor(gx, gy + th + th);	
-		}	
-				
-
+		StartPointY = StartPointY + 5;
+		d->setCursor(gx,StartPointY);
+		if (sxs){	
+		StartPointY = StartPointY + th;
+			d->setCursor(gx,StartPointY);	
+		}
 		d->print(xatitle);
 
 		//Serial.println(xatitle);
 
 	}
+	// draw legend
 	if (sl) {
-		// draw legend
+		
 				
 		d->getTextBounds(dl[0], x, y, &tx, &ty, &tw, &th);
 		
@@ -387,15 +391,15 @@ void CGraph::drawGraph() {
 			StartPointX = gx;
 		}
 		else if (tl == LOCATION_BOTTOM) {
-			StartPointY = gy + th + 10;
+			//StartPointY = StartPointY + th + 5;
 			if (sal){
 				d->getTextBounds(xatitle, x, y, &tx, &ty, &tw, &th);
 				StartPointX = gx + tw + 10;
 			}
 			
 			if (sxs){	
-				d->getTextBounds(xatitle, x, y, &tx, &ty, &tw, &th);
-				StartPointY = gy + th + th;
+			//	d->getTextBounds(xatitle, x, y, &tx, &ty, &tw, &th);
+			//	StartPointY = gy + th + th;
 			}				
 		}
 
@@ -1765,10 +1769,6 @@ void Dial::init(uint16_t NeedleColor, uint16_t DialColor, uint16_t TextColor, ui
 }
 
 void Dial::draw(float Val) {
-
-	int16_t tx, ty;
-	uint16_t tw, th, mw, mh;
-	
 
 	// draw the dial only one time--this will minimize flicker
 	if ( Redraw == true) {
