@@ -266,8 +266,8 @@ void CGraph::drawGraph() {
 
 	// draw grid lines
 	// first blank out xscale for redrawing
-	d->fillRect(gx-10, gy+2, gw+25,th+2, bc); 
-	//d->fillRect(gx, gy - gh-4, gw, gh+8, bc); 
+	d->fillRect(gx-10, gy+1, gw+25,th+4, bc); 
+	// blank out the plot area
 	d->fillRect(gx, gy - gh, gw, gh, pc);
 
 	d->setFont(&af);	
