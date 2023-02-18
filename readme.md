@@ -1,4 +1,4 @@
-<b><h2>Version</h1></b>
+<b><h3>Version</b></h3> 
 <br> 
 Version 6.0
 <br> 
