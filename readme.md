@@ -1,3 +1,10 @@
+<b><h2>Version</h1></b>
+<br> 
+Version 6.0
+<br> 
+<br> 
+
+
 <b><h2><center>Graphical Controls Library for Adafruit_ILI9341 Displays</h1></b>
   <br>
 <b><h2><center>Slider Controls for Touchscreen Displays</center></h1></b>
