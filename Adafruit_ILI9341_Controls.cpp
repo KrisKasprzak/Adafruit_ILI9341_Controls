@@ -29,6 +29,8 @@
 	5.0		11/2020			kasprzak			modified sliders, option and check to return true/false if pressed, and actual value stored in value property
 	5.1		11/2020			kasprzak			added automatic "blank out" old handle support insided draw() method in sliderH and SliderV (really needed when a slide is redrawn based on input other than a finger slide (encoder)
 	5.2		1/2023			kasprzak			added icons for buttons, better text centering
+	6.0		2/2023			kasprzak			added mono color icons for buttons
+		
 */
 
 
