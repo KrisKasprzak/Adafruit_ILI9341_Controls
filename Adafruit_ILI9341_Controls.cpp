@@ -30,6 +30,7 @@
 	5.1		11/2020			kasprzak			added automatic "blank out" old handle support insided draw() method in sliderH and SliderV (really needed when a slide is redrawn based on input other than a finger slide (encoder)
 	5.2		1/2023			kasprzak			added icons for buttons, better text centering
 	6.0		2/2023			kasprzak			added mono color icons for buttons
+	7.0		3/2023			kasprzak			fixed font issue with 
 		
 */
 
@@ -73,8 +74,9 @@ void CGraph::init(const char *Title, const char *XAxis, const char *YAxis, uint1
 	strncpy(yatitle, YAxis, 40);
 	
 
-	tf = TitleFont;
-	af = AxisFont;
+	tf = &TitleFont;
+	af = &AxisFont;
+	
 	tc = TextColor;
 
 	gc = GridColor;
@@ -90,6 +92,7 @@ void CGraph::init(const char *Title, const char *XAxis, const char *YAxis, uint1
 	sxs = true;
 	sys = true;
 	
+
 	Delta = XHigh - XLow;
 
 	RedrawGraph = true;
@@ -251,7 +254,7 @@ void CGraph::drawGraph() {
 	 d->setTextColor(tc, bc);
 
 	// draw title
-	d->setFont(&tf);		
+	d->setFont(tf);		
 	d->getTextBounds("A", x, y, &tx, &ty, &tw, &th);
 	if (st){
 
@@ -272,7 +275,7 @@ void CGraph::drawGraph() {
 	// blank out the plot area
 	d->fillRect(gx, gy - gh, gw, gh, pc);
 
-	d->setFont(&af);	
+	d->setFont(af);	
 	d->getTextBounds("A", x, y, &tx, &ty, &tw, &th);
 	// draw vertical lines
 	for (j = 0; j <= xDiv; j++) {
@@ -328,7 +331,7 @@ void CGraph::drawGraph() {
 			dtostrf(YLow+(YInc*i), 0, YDec,text);
 					
 			if ((XScaleOffset == 0) && (YScaleOffset == 0)){
-				d->setFont(&af);
+				d->setFont(af);
 				d->getTextBounds(text, x, y, &tx, &ty, &tw, &th);
 				d->setCursor(gx-tw-10,  gy - (ylen * i) + (th)/2);				
 			}
@@ -362,10 +365,10 @@ void CGraph::drawGraph() {
 		oOrientation = d->getRotation();
 		d->setTextColor(tc, bc);
 		d->setRotation(oOrientation - 1);
-		d->setCursor(d->width()-gy,gx-(2*th));	
+		d->setCursor(d->width()-gy,gx-(3*th));	
 		d->print(yatitle);
 		d->setRotation(oOrientation);
-		//Serial.println(yatitle);
+
 
     	// draw x label
 		d->setTextColor(tc, bc);
@@ -376,8 +379,6 @@ void CGraph::drawGraph() {
 			d->setCursor(gx,StartPointY);	
 		}
 		d->print(xatitle);
-
-		//Serial.println(xatitle);
 
 	}
 	// draw legend
@@ -1760,8 +1761,8 @@ Dial::Dial(Adafruit_ILI9341 *disp, int CenterX, int CenterY, int DialRadius, flo
 
 void Dial::init(uint16_t NeedleColor, uint16_t DialColor, uint16_t TextColor, uint16_t TickColor, const char *Title, const GFXfont &TitleFont , const GFXfont &DataFont ) {
 
-	tf = TitleFont;
-	df = DataFont;
+	tf = &TitleFont;
+	df = &DataFont;
 	strncpy(t, Title, 10);
 	nc = NeedleColor;
 	dc = DialColor;
@@ -1792,7 +1793,7 @@ void Dial::draw(float Val) {
 	d->fillTriangle (pix, piy,plx, ply, prx, pry, dc);
 
 	// draw the current value
-	d->setFont(&df);
+	d->setFont(df);
 	d->setTextColor(tc, dc);
 
 	offset = (270 +  (sa / 2)) * degtorad;
@@ -1861,7 +1862,7 @@ void Dial::draw(float Val) {
 
 	// print the title
 	d->setTextColor(tc, dc);
-	d->setFont(&tf);
+	d->setFont(tf);
 	
 	d->getTextBounds(t, cx, cy, &ttx, &tty, &ttw, &tth);			
 	d->setCursor(cx - ttw/2, cy + tth + 5);
