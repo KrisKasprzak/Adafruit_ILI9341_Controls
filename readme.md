@@ -1,6 +1,6 @@
 <b><h3>Version</b></h3> 
 <br> 
-Version 6.0
+Version 7.0 Fixed a font issue 
 <br> 
 <br> 
 
