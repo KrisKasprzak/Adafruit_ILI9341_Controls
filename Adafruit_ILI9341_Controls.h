@@ -30,6 +30,8 @@ rev		date			author				change
 5.1		11/2020			kasprzak			added automatic "blank out" old handle support insided draw() method in sliderH and SliderV (really needed when a slide is redrawn based on input other than a finger slide (encoder)
 5.2		1/2023			kasprzak			added icons for buttons
 6.0		2/2023			kasprzak			added mono color icons for buttons
+7.0		3/2023			kasprzak			fixed font issue with 
+
 */
 
 
@@ -37,7 +39,7 @@ rev		date			author				change
 #ifndef ADAFRUIT_ILI9341_CONTROLS_H
 #define ADAFRUIT_ILI9341_CONTROLS_H
 
-#define  ADAFRUIT_ILI9341_CONTROLS_VER 6.0
+#define  ADAFRUIT_ILI9341_CONTROLS_VER 7.0
 
 
 #if ARDUINO >= 100
@@ -186,8 +188,8 @@ public:
 private:
 
 		Adafruit_ILI9341 *d;
-		GFXfont	tf;
-		GFXfont	af;
+		const GFXfont	*tf;
+		const GFXfont	*af;
 		int ID = 0;
 		float x, y;
 		float	i, j;
@@ -425,7 +427,7 @@ public:
 		strncpy(label,Text, 60);
 		tox = TextOffsetX;
 		toy = TextOffsetY;
-		f = TextFont;
+		f = &TextFont;
 		enabled = true;
 		state = true; // true=up, false=down
 		visible = true;
@@ -478,7 +480,7 @@ public:
 		d->fillRoundRect(x, y-s, s, s, ct, fill);
 		d->drawRoundRect(x, y-s, s, s, ct, outline);
 
-		d->setFont(&f);
+		d->setFont(f);
 				
 		if ((tox == 0) && (toy == 0)){
 			d->getTextBounds(label, x, y, &tx, &ty, &tw, &th);
@@ -564,7 +566,7 @@ public:
 		tox = TextOffsetX;
 		toy = TextOffsetY;
 		strncpy(label,Text, 60);
-		f = TextFont;
+		f = &TextFont;
 
 	}
 
@@ -590,7 +592,7 @@ public:
 private:
 	Adafruit_ILI9341 *d;
 	char label[60];
-	GFXfont f;
+	const GFXfont *f;
 	int16_t x, y;
 	uint16_t s, ct;
 	uint16_t oc, uc, dc, bc, doc, duc, ddc, dtc, tc;
@@ -621,7 +623,7 @@ public:
 		x_offset = TextOffsetX;
 		y_offset = TextOffsetY;
 		strncpy(label, ButtonText, 20);
-		f = TextFont;
+		f = &TextFont;
 		ct = CORNER_AUTO;
 		bt = 4;
 		drawit = true;
@@ -632,6 +634,8 @@ public:
 		newcorner = false;
 		Has565Icon = false;
 		HasMonoIcon = false;
+	
+	
 	}
 	
 	// color 565 icon, no text
@@ -765,7 +769,7 @@ public:
 		
 	    if ((!Has565Icon) && (!HasMonoIcon)){
 	 
-			d->setFont(&f);
+			//d->setFont(&f);
 			
 			if ((x_offset == 0) && (y_offset == 0)){			
 
@@ -885,7 +889,7 @@ public:
 	void setFont(int TextOffsetX, int TextOffsetY, const GFXfont &TextFont) {
 		x_offset = TextOffsetX;
 		y_offset = TextOffsetY;
-		f = TextFont;
+		f = &TextFont;
 	}
 
 	void setText(const char *ButtonText) {
@@ -919,7 +923,7 @@ public:
 
 private:
 	Adafruit_ILI9341 *d;
-	GFXfont f;
+	const GFXfont *f;
 	void draw565Bitmap(int16_t x, int16_t y, const uint16_t *bitmap, int16_t w, int16_t h) {
 	uint16_t offset = 0;
 	int j, i;
@@ -997,7 +1001,7 @@ public:
 		tox = TextOffsetX;
 		toy = TextOffsetY;
 		dtc = C_DISABLE_MED;
-		f = TextFont;
+		f = &TextFont;
 		enabled = true;
 		current = 0;
 		ID = 0;
@@ -1040,7 +1044,7 @@ public:
 			for (i = 0; i < ID; i++){
 				d->fillCircle(x[i]+r/2, y[i]+r/2, r, bc);
 				d->setCursor(x[i] + tox, y[i] + toy);
-				d->setFont(&f);
+				d->setFont(f);
 				d->setTextColor(bc);
 				d->print(label[i]);
 			}
@@ -1071,7 +1075,7 @@ public:
 			
 			d->drawCircle(x[i]+r/2, y[i]+r/2, r, toc);
 			
-			d->setFont(&f);
+			d->setFont(f);
 			
 			if ((tox == 0) && (toy == 0)) {
 				d->getTextBounds(label[i], x[i], y[i], &tx, &ty, &tw, &th);	
@@ -1158,7 +1162,7 @@ public:
 		
 		tox = TextOffsetX;
 		toy = TextOffsetY;
-		f = TextFont;
+		f = &TextFont;
 				
 	}
 
@@ -1188,7 +1192,7 @@ public:
 private:
 	Adafruit_ILI9341 *d;
 	char label[MAX_OPTION][60];
-	GFXfont f;
+	const GFXfont *f;
 	uint16_t x[MAX_OPTION], y[MAX_OPTION];
 	float rv[MAX_OPTION];
 	uint16_t r;
@@ -1282,9 +1286,9 @@ public:
 private:
 	
 	bool Redraw = true;
-	Adafruit_ILI9341 			*d;			
-	GFXfont	tf;
-	GFXfont	df;
+	Adafruit_ILI9341 *d;			
+	const GFXfont	*tf;
+	const GFXfont	*df;
 	char t[40];
 	int cx;
 	int cy;
