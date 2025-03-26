@@ -96,7 +96,7 @@ void CGraph::init(const char *Title, const char *XAxis, const char *YAxis, uint1
 	Delta = XHigh - XLow;
 
 	RedrawGraph = true;
-
+	ID = 0;
 	}
 
 int CGraph::add(const char *name, uint16_t color){
