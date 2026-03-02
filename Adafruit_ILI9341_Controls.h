@@ -344,12 +344,12 @@ private:
 	uint16_t dhColor;
 	uint16_t tsColor;
 	uint16_t thColor;
-	uint16_t x;			// the left coordinate of the scale
-	uint16_t y;			// the top coordinate of the scale
-	uint16_t l;			// the left coordinate of the scale
-	uint16_t t;			// the top coordinate of the scale
-	uint16_t w;			// the with of the scale
-	uint16_t h;			// the with of the scale
+	int16_t x;			// the left coordinate of the scale
+	int16_t y;			// the top coordinate of the scale
+	int16_t l;			// the left coordinate of the scale
+	int16_t t;			// the top coordinate of the scale
+	int16_t w;			// the with of the scale
+	int16_t h;			// the with of the scale
 	float oy;			// the old screen y value where user pressed
 	float sl;				// the scale lower value
 	float sh;				// the scale upper value
@@ -594,7 +594,7 @@ private:
 	char label[60];
 	const GFXfont *f;
 	int16_t x, y;
-	uint16_t s, ct;
+	int16_t s, ct;
 	uint16_t oc, uc, dc, bc, doc, duc, ddc, dtc, tc;
 	bool state;
 	int tox, toy;
@@ -769,7 +769,7 @@ public:
 		
 	    if ((!Has565Icon) && (!HasMonoIcon)){
 	 
-			//d->setFont(&f);
+			d->setFont(f);
 			
 			if ((x_offset == 0) && (y_offset == 0)){			
 
