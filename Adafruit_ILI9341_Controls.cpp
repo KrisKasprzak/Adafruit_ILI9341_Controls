@@ -271,7 +271,7 @@ void CGraph::drawGraph() {
 
 	// draw grid lines
 	// first blank out xscale for redrawing
-	d->fillRect(gx-10, gy+1, gw+25,th+4, bc); 
+	d->fillRect(gx-10, gy+1, gw+25,th+6, bc); 
 	// blank out the plot area
 	d->fillRect(gx, gy - gh, gw, gh, pc);
 
@@ -383,8 +383,7 @@ void CGraph::drawGraph() {
 	}
 	// draw legend
 	if (sl) {
-		
-				
+						
 		d->getTextBounds(dl[0], x, y, &tx, &ty, &tw, &th);
 		
 		StartPointX = gx;
